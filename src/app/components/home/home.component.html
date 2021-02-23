@@ -1,0 +1,41 @@
+<div class="grid-container">
+  <mat-card *ngFor="let m of posts; let i=index;">
+    <mat-card-header>
+      <mat-card-title>
+        Author: {{m.created_by.name}} {{m.created_by.lastname}} 
+      </mat-card-title>
+      <mat-card-subtitle>
+        Date Create · {{m.updatedAt}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="dashboard-card-content">
+      {{m.content}}
+      <div *ngIf="m.text_translate">
+        <br>
+        Translate:
+        {{m.text_translate}}
+
+      </div>
+      
+    </mat-card-content>
+    <mat-card-footer class="margin-auto">
+      <mat-label>Translate to</mat-label>
+      <select name="miselect" [(ngModel)]="seleccionado">
+        <option [value]="item" *ngFor="let item of lang_arr">{{item}}</option>
+      </select>
+      <button mat-raised-button (click)="getTranslate(i, m.content)" color="primary">Translate</button>
+      <mat-card>
+        <mat-card-content  *ngFor="let c of m.comments" >
+          {{c.content}}
+          <hr>
+        </mat-card-content>
+      </mat-card>
+      <mat-form-field style="width: 80%;">
+        <mat-label>New comment</mat-label>
+        <textarea matInput rows="1" [(ngModel)]="comment" name="comment"></textarea>
+      </mat-form-field>
+      <button mat-raised-button (click)="sendComment(m.id, i)" color="primary">Send</button>
+    </mat-card-footer>
+  </mat-card>
+  <hr>
+</div>

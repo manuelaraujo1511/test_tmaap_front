@@ -1,0 +1,61 @@
+<div class="grid-container">
+  <div *ngFor="let m of posts; let i=index;">
+    <mat-card >
+      <mat-card-header>
+        <mat-card-subtitle>
+          Date Create · {{m.updatedAt}}
+          <mat-chip-list>
+            <mat-chip>State: {{m.state.state}}</mat-chip>
+          </mat-chip-list>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content >
+        <div *ngIf="!m.update">
+          {{m.content}}
+        </div>
+        <mat-form-field style="width: 80%;" *ngIf="update_txt && post_id_edit === m.id">
+          <textarea matInput rows="6" [(ngModel)]="content_update" name="content_update"></textarea>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-footer class="margin-auto" *ngIf="m.state.state === 'rejected'">
+        <button *ngIf="!update_txt" mat-raised-button (click)="EditPost(i)" color="primary">Update</button>
+        <button *ngIf="update_txt" mat-raised-button (click)="UpdatePost(0, i, m.id, 'pending')" color="primary">Send</button>
+      </mat-card-footer>
+    </mat-card>
+    <hr>
+  </div>
+  <!-- User EDitor -->
+  <div *ngFor="let u of user_posts; let i=index;">
+    <mat-card *ngIf="u.publications.length > 0"  >
+      <mat-card-header>
+        <mat-card-title>
+          Author: {{u.name}} {{u.lastname}} 
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content   >
+        <div *ngFor="let m of u.publications; let j=index;">
+          <mat-card >
+            <mat-card-header>
+              <mat-card-subtitle>
+                Date Create · {{m.updatedAt}}
+                <mat-chip-list>
+                  <mat-chip>State: {{m.state.state}}</mat-chip>
+                </mat-chip-list>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content >
+              {{m.content}}
+            </mat-card-content>
+            <mat-card-footer class="margin-auto">
+              <button mat-raised-button (click)="UpdatePost(i,j, m.id, 'approved')" color="primary">Approve</button>
+              <button mat-raised-button (click)="UpdatePost(i,j, m.id, 'rejected')" color="secondary">Reject</button>
+              <button mat-raised-button (click)="UpdatePost(i,j, m.id, 'deleted')" color="error">Delete</button>
+            </mat-card-footer>
+          </mat-card>
+          <hr>
+        </div>
+      </mat-card-content>
+      <hr>
+    </mat-card>
+  </div>
+</div>

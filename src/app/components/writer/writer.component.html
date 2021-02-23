@@ -1,0 +1,20 @@
+<div class="grid-container">
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>
+        New post
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="dashboard-card-content">
+      <mat-form-field style="width: 80%;">
+        <mat-label>New post</mat-label>
+        <textarea matInput rows="6" [(ngModel)]="content" name="content"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-footer class="margin-auto">
+      <button mat-raised-button (click)="sendPost()" color="primary">Send</button>
+    </mat-card-footer>
+  </mat-card>
+</div>

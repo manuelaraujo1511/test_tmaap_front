@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav *ngIf="bool_login" #drawer class="sidenav" fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar>Menú</mat-toolbar>
+    <mat-nav-list *ngIf="User.role === 'writer'">
+      <a mat-list-item [routerLink]="['/writer-post']">Write post</a> 
+      <a mat-list-item [routerLink]="['/consulting-post']">Consulting post's</a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="User.role === 'editor'">
+      <a mat-list-item [routerLink]="['/consulting-post']">Consulting post's</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <button *ngIf="bool_login" mat-button (click)="goToHome()" title="Login">
+        <mat-icon class="example-icon" aria-hidden="false" >home</mat-icon>
+      </button>
+      <span class="example-spacer"></span>
+      <span>{{title}}</span>
+      <span class="example-spacer"></span>
+
+      <button *ngIf="!bool_login" mat-button (click)="goToLogin()" title="Login">
+        <mat-icon class="example-icon" aria-hidden="false" >login</mat-icon>
+      </button>
+      <button *ngIf="bool_login" mat-button (click)="logout()" title="Logout">
+        <mat-icon class="example-icon" aria-hidden="false" >logout</mat-icon>
+      </button>
+      
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
